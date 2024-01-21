@@ -32,6 +32,9 @@ class TablaAsignacion:
             "E",
         ]
 
+    def getTabla(self):
+        return self.tabla
+
     def getLetra(self, posicion):
         try:
             return self.tabla[posicion]
@@ -39,10 +42,10 @@ class TablaAsignacion:
             return "Posicion letra fuera de rango"
 
     def getModulo(self):
-        return len(self.tabla)
+        return len(self.getTabla())
 
-    def letraPermitida(self, letra):
-        return letra in self.tabla
+    def isLetraPermitida(self, letra):
+        return letra in self.getTabla()
 
     def calcularLetra(self, DNI):
         # Obtener el numero del dni del string => dni sano
@@ -53,7 +56,7 @@ class TablaAsignacion:
         return self.getLetra(posicion)
 
     def mostrarTabla(self):
-        print(self.tabla)
+        print(self.getTabla())
 
 
 if __name__ == "__main__":
@@ -77,7 +80,7 @@ if __name__ == "__main__":
 
     letrasNoPermitidas = ["I", "Ñ", "O", "U"]
     for letra in letrasNoPermitidas:
-        print("Letra %c: %s" % (letra, tabla.letraPermitida(letra)))
+        print("Letra %c: %s" % (letra, tabla.isLetraPermitida(letra)))
 
     casosTest = [  # casos test OK
         "78484464T",
