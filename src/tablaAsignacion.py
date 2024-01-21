@@ -47,7 +47,7 @@ class TablaAsignacion:
     def calcularLetra(self, DNI):
         # Obtener el numero del dni del string => dni sano
         # Dividirlo por el número de letras (actualmente 23)
-    	# y obtener el resto (división módulo)
+        # y obtener el resto (división módulo)
         # Consultar TablaAsignacion con ese resto = posicion
         posicion = int(DNI) % self.getModulo()
         return self.getLetra(posicion)
@@ -57,17 +57,27 @@ class TablaAsignacion:
 
 
 if __name__ == "__main__":
+
     import math
     import random
 
     tabla = TablaAsignacion()
 
+    print("\n## TABLA ##\n")
+
+    tabla.mostrarTabla()
+
+    print("\n## ACCESO POR POSICION ##\n")
+
     print(tabla.getLetra(0))  # T
     print(tabla.getLetra(22)) # E
+    print(tabla.getLetra(30)) # E
+
+    print("\n## LETRAS NO PERMITIDAS ##\n")
 
     letrasNoPermitidas = ["I", "Ñ", "O", "U"]
     for letra in letrasNoPermitidas:
-        print("Letra %c: %s \n" % (letra, tabla.letraPermitida(letra)))
+        print("Letra %c: %s" % (letra, tabla.letraPermitida(letra)))
 
     casosTest = [  # casos test OK
         "78484464T",
@@ -105,10 +115,10 @@ if __name__ == "__main__":
         # en la ultima posicion añado una letra NO PERMITIDA ['I', 'Ñ', 'O', 'U']
         caso = caso + letrasNoPermitidas[random.randrange(0, 3 + 1, 1)]
         casosTest = casosTest + [caso]
+    
+    print("\n## CASOS TEST ##\n")
 
     print(casosTest)
-
-    tabla = TablaAsignacion()
 
     for dni in casosTest:
         if tabla.calcularLetra(dni[:-1]) == dni[-1]:
