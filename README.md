@@ -19,10 +19,7 @@ Aplicad los principios SOLID que ya conocéis:
  - OCP (O) o Open/Closed Principle. Las entidades de software (clases, módulos, funciones, etc.) deben estar “abiertas” a la extensión pero “cerradas” a la modificación.
  - LSP (L) o Principio de sustitución de Liskov: los objetos de un programa deberían ser reemplazables por instancias de sus tipos base sin alterar el correcto funcionamiento del programa (herencia y polimorfismo).
 
-Todos estos principios están explicados en el libro: 
-Agile Principles Patterns and Practices in C:
-
-https://drive.google.com/open?id=18ehxsv7HXMatNp1egeKUySzbOVQP5dIM
+Todos estos principios están explicados en el libro [_Agile Principles Patterns and Practices in C, by Micah Martin, Robert C. Martin_](https://www.oreilly.com/library/view/agile-principles-patterns/0131857258/)
 
 Vamos a ponerlos en práctica con el siguiente kata.
 
