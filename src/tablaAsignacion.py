@@ -61,7 +61,6 @@ class TablaAsignacion:
 
 if __name__ == "__main__":
 
-    import math
     import random
 
     tabla = TablaAsignacion()
@@ -118,7 +117,7 @@ if __name__ == "__main__":
         # en la ultima posicion añado una letra NO PERMITIDA ['I', 'Ñ', 'O', 'U']
         caso = caso + letrasNoPermitidas[random.randrange(0, 3 + 1, 1)]
         casosTest = casosTest + [caso]
-    
+
     print("\n## CASOS TEST ##\n")
 
     print(casosTest)
