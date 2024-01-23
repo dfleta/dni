@@ -80,7 +80,7 @@ if __name__ == "__main__":
 
     letrasNoPermitidas = ["I", "Ñ", "O", "U"]
     for letra in letrasNoPermitidas:
-        print("Letra %c: %s" % (letra, tabla.isLetraPermitida(letra)))
+        print(f"Letra {letra}: {tabla.isLetraPermitida(letra)}")
 
     casosTest = [  # casos test OK
         "78484464T",
