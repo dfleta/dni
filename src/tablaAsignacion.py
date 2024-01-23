@@ -55,8 +55,8 @@ class TablaAsignacion:
         posicion = int(DNI) % self.getModulo()
         return self.getLetra(posicion)
 
-    def mostrarTabla(self):
-        print(self.getTabla())
+    def __repr__(self) -> str:
+        return "\n".join(self.getTabla())
 
 
 if __name__ == "__main__":
@@ -67,13 +67,14 @@ if __name__ == "__main__":
 
     print("\n## TABLA ##\n")
 
-    tabla.mostrarTabla()
+    # tabla.mostrarTabla()
+    print(tabla)
 
     print("\n## ACCESO POR POSICION ##\n")
 
     print(tabla.getLetra(0))  # T
     print(tabla.getLetra(22)) # E
-    print(tabla.getLetra(30)) # E
+    print(tabla.getLetra(30)) # Excepcion!
 
     print("\n## LETRAS NO PERMITIDAS ##\n")
 
