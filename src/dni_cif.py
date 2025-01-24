@@ -1,5 +1,5 @@
 from tablaAsignacion import TablaAsignacion
-from class_bcolors_enum import Colors
+from cli_colors import Colors
 
 
 class Dni:
@@ -87,9 +87,9 @@ if __name__ == "__main__":
     import random
 
     def prettyFormatter(condition, message):
-        print(f"{Colors.OKGREEN} {message} {Colors.ENDC}"
+        print(f"{Colors.OKGREEN.value} {message} {Colors.ENDC.value}"
                   if condition
-                  else f"{Colors.FAIL} {message} {Colors.ENDC}")
+                  else f"{Colors.FAIL.value} {message} {Colors.ENDC.value}")
 
     ### Casos test ALEATORIOS ###
 
@@ -104,7 +104,7 @@ if __name__ == "__main__":
             # ASCII 48-57 = 0-9    65-90 = A-Z   58 = ":"
             # generamos un numero aleatorio entre 48 y 58
             caracterAscii = random.randrange(48, 58 + 1, 1)
-            # convertimos el numero ASCII a caracter. 
+            # convertimos el numero ASCII a caracter.
             # chr() toma el argumento como codigo ASCII de un caracter
             caso = caso + chr(caracterAscii)
         # en la ultima posicion añado una letra A-Z
