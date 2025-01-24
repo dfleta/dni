@@ -1,6 +1,10 @@
 import random
 from src.tablaAsignacion import TablaAsignacion
 from src.cli_colors import Colors
+from src.dni_cif import Dni
+
+
+### TABLA ASIGNACION ###
 
 tabla = TablaAsignacion()
 
@@ -21,7 +25,7 @@ letrasNoPermitidas = ["I", "Ñ", "O", "U"]
 for letraNoPermitida in letrasNoPermitidas:
     print(f"Letra {letraNoPermitida}: {tabla.isLetraPermitida(letraNoPermitida)}")
 
-casosTest = [  # casos test OK
+casos_test_ok = [  # casos test OK
     "78484464T",
     "72376173A",
     "01817200Q",
@@ -39,7 +43,7 @@ casosTest = [  # casos test OK
     "66499420A",
 ]
 
-### Añado casos test FAIL ALEATORIOS ###
+### Añado casos test INCORRECTOS ALEATORIOS ###
 
 numeroCasos = 15
 
@@ -57,15 +61,90 @@ for i in range(1, numeroCasos + 1):
     # en la ultima posicion añado una letra NO PERMITIDA
     # ['I', 'Ñ', 'O', 'U']
     caso = caso + letrasNoPermitidas[random.randrange(0, 3 + 1, 1)]
-    casosTest = casosTest + [caso]
+    casos_test_ok = casos_test_ok + [caso]
 
 print("\n## CASOS TEST ##\n")
 
-print(casosTest)
+print(casos_test_ok)
 
-for dni in casosTest:
+for dni in casos_test_ok:
     if tabla.calcularLetra(dni[:-1]) == dni[-1]:
         print(f"{dni} {Colors.OKGREEN.value} OK {Colors.ENDC.value}")
     else:
         # print("%s %s" % (dni, Colors.FAIL + "FAIL" + Colors.ENDC))
         print(f"{dni} {Colors.FAIL.value} FAIL {Colors.ENDC.value}")
+
+
+
+### DNI ###
+
+def prettyFormatter(condition, message):
+    print(f"{Colors.OKGREEN.value} {message} {Colors.ENDC.value}"
+            if condition
+            else f"{Colors.FAIL.value} {message} {Colors.ENDC.value}")
+
+### Casos test ALEATORIOS ###
+
+casos_test_ok = []
+numeroCasos = 25
+
+for i in range(1, numeroCasos + 1):
+    caso = ""
+    for j in range(1, 9):
+        # random.randrange(start, stop[, step])
+        # numeroAleatorio = random.randint(0, 9)
+        # ASCII 48-57 = 0-9    65-90 = A-Z   58 = ":"
+        # generamos un numero aleatorio entre 48 y 58
+        caracterAscii = random.randrange(48, 58 + 1, 1)
+        # convertimos el numero ASCII a caracter.
+        # chr() toma el argumento como codigo ASCII de un caracter
+        caso = caso + chr(caracterAscii)
+    # en la ultima posicion añado una letra A-Z
+    caso = caso + chr(random.randrange(65, 90 + 1, 1))
+    casos_test_ok = casos_test_ok + [caso]
+
+print("\n## CASOS TEST ALEATORIOS ##\n")
+
+print(casos_test_ok)
+
+for testString in casos_test_ok:
+    dni = Dni(testString)
+    print(dni.getDni())
+    dni.checkCIF()
+    # print("dni --->", dni.getNumeroSano())
+    # print("Letra --->", dni.getLetraSana())
+    # print("La letra es", dni.obtenerLetra())
+    prettyFormatter(dni.getNumeroSano(), dni.getDni())
+    prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
+
+### Casos test OK ###
+
+casos_test_ok = [  # casos OK
+    "78484464T",
+    "72376173A",
+    "01817200Q",
+    "95882054E",
+    "63587725Q",
+    "26861694V",
+    "21616083Q",
+    "26868974Y",
+    "40135330P",
+    "89044648X",
+    "80117501Z",
+    "34168723S",
+    "76857238R",
+    "66714505S",
+    "66499420A",
+]
+
+print("\n #### CASOS OK #### \n")
+
+for testString in casos_test_ok:
+    dni = Dni(testString)
+    print(dni.getDni())
+    dni.checkCIF()
+    # print("dni --->", dni.getNumeroSano())
+    # print("Letra --->", dni.getLetraSana())
+    # print("La letra es", dni.obtenerLetra())
+    prettyFormatter(dni.getNumeroSano(), dni.getDni())
+    prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
