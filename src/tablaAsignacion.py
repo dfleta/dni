@@ -1,7 +1,6 @@
-from class_bcolors_enum import Colors
+from cli_colors import Colors
 
-
-class TablaAsignacion:
+class TablaAsignacion():
 
     # podemos utilizar este ejercicio para sobrecarga
     # de operaciones sobre listas
@@ -47,12 +46,12 @@ class TablaAsignacion:
     def isLetraPermitida(self, letra):
         return letra in self.getTabla()
 
-    def calcularLetra(self, DNI):
+    def calcularLetra(self, numero_dni):
         # Obtener el numero del dni del string => dni sano
         # Dividirlo por el número de letras (actualmente 23)
         # y obtener el resto (división módulo)
         # Consultar TablaAsignacion con ese resto = posicion
-        posicion = int(DNI) % self.getModulo()
+        posicion = int(numero_dni) % self.getModulo()
         return self.getLetra(posicion)
 
     def __repr__(self) -> str:
@@ -60,7 +59,6 @@ class TablaAsignacion:
 
 
 if __name__ == "__main__":
-
     import random
 
     tabla = TablaAsignacion()
@@ -79,8 +77,8 @@ if __name__ == "__main__":
     print("\n## LETRAS NO PERMITIDAS ##\n")
 
     letrasNoPermitidas = ["I", "Ñ", "O", "U"]
-    for letra in letrasNoPermitidas:
-        print(f"Letra {letra}: {tabla.isLetraPermitida(letra)}")
+    for letraNoPermitida in letrasNoPermitidas:
+        print(f"Letra {letraNoPermitida}: {tabla.isLetraPermitida(letraNoPermitida)}")
 
     casosTest = [  # casos test OK
         "78484464T",
@@ -115,7 +113,8 @@ if __name__ == "__main__":
             # convertimos el numero ASCII a caracter.
             # chr() toma el argumento como codigo ASCII de un caracter
             caso = caso + chr(caracterAscii)
-        # en la ultima posicion añado una letra NO PERMITIDA ['I', 'Ñ', 'O', 'U']
+        # en la ultima posicion añado una letra NO PERMITIDA
+        # ['I', 'Ñ', 'O', 'U']
         caso = caso + letrasNoPermitidas[random.randrange(0, 3 + 1, 1)]
         casosTest = casosTest + [caso]
 
@@ -125,7 +124,7 @@ if __name__ == "__main__":
 
     for dni in casosTest:
         if tabla.calcularLetra(dni[:-1]) == dni[-1]:
-            print(f"{dni} {Colors.OKGREEN} OK {Colors.ENDC}")
+            print(f"{dni} {Colors.OKGREEN.value} OK {Colors.ENDC.value}")
         else:
             # print("%s %s" % (dni, Colors.FAIL + "FAIL" + Colors.ENDC))
-            print(f"{dni} {Colors.FAIL} FAIL {Colors.ENDC}")
+            print(f"{dni} {Colors.FAIL.value} FAIL {Colors.ENDC.value}")
