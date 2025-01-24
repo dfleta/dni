@@ -28,7 +28,7 @@ class Dni:
         return self.checkDni() and self.checkLetra()
 
     def checkDni(self):
-        self.__setNumeroSano(self.checkLongitud() and self.checkNumero())
+        self.__setNumeroSano(self.__checkLongitud() and self.__checkNumero())
         return self.getNumeroSano()
 
     def checkLetra(self):
@@ -36,7 +36,7 @@ class Dni:
             self.__setLetraSana(
                 self.getParteAlfabeticaDni().isupper()
                 and not self.getParteAlfabeticaDni().isdigit()
-                and self.checkLetraValida()
+                and self.__checkLetraValida()
             )
             return self.getLetraSana()
         else:
@@ -59,13 +59,13 @@ class Dni:
     def __setLetraSana(self, valor):
         self.letraSana = valor
 
-    def checkLongitud(self):
+    def __checkLongitud(self):
         return len(self.getDni()) == 9
 
-    def checkNumero(self):
+    def __checkNumero(self):
         return self.dni[:-1].isdigit()
 
-    def checkLetraValida(self):
+    def __checkLetraValida(self):
         if self.getNumeroSano():
             return self.getParteAlfabeticaDni() == self.obtenerLetra()
         else:
