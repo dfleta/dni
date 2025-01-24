@@ -4,8 +4,8 @@ import pytest
 from src.tablaAsignacion import TablaAsignacion
 
 
-@pytest.fixture
-def tabla():
+@pytest.fixture(name="tabla")
+def tablaAsignacion():
     return TablaAsignacion()
 
 
