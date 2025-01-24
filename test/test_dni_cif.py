@@ -1,11 +1,11 @@
 from test.dni_correctos import CASOS_TEST_CORRECTOS
-from test.dni_incorrectos import CASOS_TEST_INCORRECTOS
+from test.dni_incorrectos import CASOS_TEST_LETRA_PROHIBIDA
 from test.dni_formato_incorrecto import CASOS_TEST_FORMATO_INCORRECTO
 import pytest
 from src.dni_cif import Dni
 
-@pytest.fixture
-def dni():
+@pytest.fixture(name="dni")
+def inyector():
     return Dni()
 
 def test_constructor_default(dni):
@@ -22,7 +22,7 @@ def test_check_cif_correcto(dni, dni_test):
     dni.setDni(dni_test)
     assert dni.checkCIF()
 
-@pytest.mark.parametrize("dni_test", CASOS_TEST_INCORRECTOS)
+@pytest.mark.parametrize("dni_test", CASOS_TEST_LETRA_PROHIBIDA)
 def test_check_cif_incorrecto(dni, dni_test):
     dni.setDni(dni_test)
     assert not dni.checkCIF()
@@ -43,8 +43,14 @@ def test_check_letra_correcta(dni, dni_test):
     dni.checkDni()  # Necesario para establecer numeroSano
     assert dni.checkLetra()
 
-@pytest.mark.parametrize("dni_test", CASOS_TEST_INCORRECTOS)
+@pytest.mark.parametrize("dni_test", CASOS_TEST_LETRA_PROHIBIDA)
 def test_check_letra_incorrecta(dni, dni_test):
+    dni.setDni(dni_test)
+    dni.checkDni()  # Necesario para establecer numeroSano
+    assert not dni.checkLetra()
+
+@pytest.mark.parametrize("dni_test", CASOS_TEST_FORMATO_INCORRECTO)
+def test_check_letra_numero_mal_formateado(dni, dni_test):
     dni.setDni(dni_test)
     dni.checkDni()  # Necesario para establecer numeroSano
     assert not dni.checkLetra()

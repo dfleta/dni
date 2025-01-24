@@ -1,5 +1,5 @@
 from test.dni_correctos import CASOS_TEST_CORRECTOS
-from test.dni_incorrectos import CASOS_TEST_INCORRECTOS
+from test.dni_incorrectos import CASOS_TEST_LETRA_PROHIBIDA
 import pytest
 from src.tablaAsignacion import TablaAsignacion
 
@@ -60,7 +60,7 @@ def test_calcularLetra_correcta(tabla, dni):
     assert tabla.calcularLetra(numero_dni) == letra
 
 
-@pytest.mark.parametrize("dni", CASOS_TEST_INCORRECTOS)
+@pytest.mark.parametrize("dni", CASOS_TEST_LETRA_PROHIBIDA)
 def test_calcularLetra_incorrecta(tabla, dni):
     numero_dni = dni[:-1]
     letra = dni[-1]
