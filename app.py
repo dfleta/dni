@@ -12,12 +12,12 @@ def mostrarLetrasNoPermitidas(tabla):
           {tabla.isLetraPermitida(letra_no_permitida)}")
 
 
-def generarCIFLetraNoPermitida(NUMERO_CASOS):
+def generarCIFLetraNoPermitida(numero_casos):
     CERO_ASCII = 48
     NUEVE_ASCII = 57
     LONGITUD_DNI = 8
     cif_con_letra_prohibida = []
-    for _ in range(NUMERO_CASOS):
+    for _ in range(numero_casos):
         dni = ""
         # CIF tiene 8 digito y una letra
         for _ in range(LONGITUD_DNI):
@@ -124,7 +124,7 @@ def main():
 
     ### Casos test OK ###
 
-    CASOS_TEST_OK = [  # casos OK
+    cifs_ok = [  # casos OK
         "78484464T",
         "72376173A",
         "01817200Q",
@@ -144,7 +144,7 @@ def main():
 
     print("\n #### CASOS TEST DNI OK #### \n")
 
-    for cif_ok in CASOS_TEST_OK:
+    for cif_ok in cifs_ok:
         dni = Dni(cif_ok)
         print(dni.getDni())
         dni.checkCIF()
