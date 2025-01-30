@@ -41,11 +41,13 @@ def generarCIFLetraNoPermitida(numero_casos):
     return cif_con_letra_prohibida
 
 
-def generar_cifs_aleatorios(numero_casos):
+def generarCIFsAleatorios(numero_casos):
     LONGITUD_DNI = 8
     CERO_ASCII = 48
     DOS_PUNTOS_ASCII = 58
-    dnis_aleatorios = []
+    A_ASCII = 65
+    Z_ASCII = 90
+    cifs_aleatorios = []
     for _ in range(numero_casos):
         dni = ""
         for _ in range(LONGITUD_DNI):
@@ -54,9 +56,10 @@ def generar_cifs_aleatorios(numero_casos):
             # convertimos el numero ASCII a caracter.
             dni += chr(caracter_ascii)
         # en la ultima posicion añado una letra A-Z
-        cif = dni + chr(random.randrange(65, 90 + 1, 1))
-        dnis_aleatorios.append(cif)
-    return dnis_aleatorios
+        # ASCII 65-90 = A-Z
+        cif = dni + chr(random.randrange(A_ASCII, Z_ASCII + 1))
+        cifs_aleatorios.append(cif)
+    return cifs_aleatorios
 
 
 def prettyFormatter(condition, message):
@@ -110,7 +113,7 @@ def main():
     ### Casos test DNI ALEATORIOS ###
 
     numero_casos = 25
-    cifs_aleatorios = generar_cifs_aleatorios(numero_casos)
+    cifs_aleatorios = generarCIFsAleatorios(numero_casos)
 
     print("\n## CASOS TEST DNI ALEATORIOS ##\n")
 
@@ -157,7 +160,6 @@ def main():
         # print("La letra es", dni.obtenerLetra())
         prettyFormatter(dni.getNumeroSano(), dni.getDni())
         prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
-
 
 
 if __name__ == "__main__":
