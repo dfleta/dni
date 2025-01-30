@@ -42,23 +42,26 @@ def generarCIFLetraNoPermitida(numero_casos):
 
 
 def generarCIFsAleatorios(numero_casos):
-    LONGITUD_DNI = 8
-    CERO_ASCII = 48
-    DOS_PUNTOS_ASCII = 58
     A_ASCII = 65
     Z_ASCII = 90
     cifs_aleatorios = []
     for _ in range(numero_casos):
-        dni = ""
-        for _ in range(LONGITUD_DNI):
-            # ASCII 48-57 = 0-9    65-90 = A-Z   58 = ":"
-            caracter_ascii = random.randrange(CERO_ASCII, DOS_PUNTOS_ASCII + 1)
-            # convertimos el numero ASCII a caracter.
-            dni += chr(caracter_ascii)
+        dni = generarDNIaleatorio()
         # en la ultima posicion añado una letra A-Z
         # ASCII 65-90 = A-Z
         cif = dni + chr(random.randrange(A_ASCII, Z_ASCII + 1))
         cifs_aleatorios.append(cif)
+    return cifs_aleatorios
+
+
+def generarCIFsAleatoriosMalFormados(numero_casos):
+    DOS_PUNTOS_ASCII = 58
+    cifs_aleatorios = []
+    for _ in range(numero_casos):
+        cif = list(generarCIFsAleatorios(1)[0])
+        posicion = random.randint(0, len(cif[:-1]) - 1)
+        cif[posicion] = chr(DOS_PUNTOS_ASCII)
+        cifs_aleatorios.append(''.join(cif))
     return cifs_aleatorios
 
 
@@ -102,7 +105,6 @@ def main():
         if tabla.calcularLetra(cif[:-1]) == cif[-1]:
             print(f"{cif} {Colors.OKGREEN.value} OK {Colors.ENDC.value}")
         else:
-            # print("%s %s" % (dni, Colors.FAIL + "FAIL" + Colors.ENDC))
             print(f"{cif} {Colors.FAIL.value} FAIL {Colors.ENDC.value}")
 
 
@@ -112,20 +114,24 @@ def main():
 
     ### Casos test DNI ALEATORIOS ###
 
-    numero_casos = 25
+    numero_casos = 15
     cifs_aleatorios = generarCIFsAleatorios(numero_casos)
 
     print("\n## CASOS TEST DNI ALEATORIOS ##\n")
 
-    print(cifs_aleatorios)
+    for cif in cifs_aleatorios:
+        dni = Dni(cif)
+        dni.checkCIF()
+        prettyFormatter(dni.getNumeroSano(), dni.getDni())
+        prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
+
+    print("\n## CASOS TEST DNI ALEATORIOS MAL FORMADOS ##\n")
+
+    cifs_aleatorios = generarCIFsAleatoriosMalFormados(numero_casos)
 
     for cif in cifs_aleatorios:
         dni = Dni(cif)
-        print(dni.getDni())
         dni.checkCIF()
-        # print("dni --->", dni.getNumeroSano())
-        # print("Letra --->", dni.getLetraSana())
-        # print("La letra es", dni.obtenerLetra())
         prettyFormatter(dni.getNumeroSano(), dni.getDni())
         prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
 
@@ -153,11 +159,7 @@ def main():
 
     for cif_ok in cifs_ok:
         dni = Dni(cif_ok)
-        print(dni.getDni())
         dni.checkCIF()
-        # print("dni --->", dni.getNumeroSano())
-        # print("Letra --->", dni.getLetraSana())
-        # print("La letra es", dni.obtenerLetra())
         prettyFormatter(dni.getNumeroSano(), dni.getDni())
         prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
 
