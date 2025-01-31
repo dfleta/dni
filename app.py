@@ -146,4 +146,10 @@ def main():
 
 
 if __name__ == "__main__":
+    # Esta estructura de app y main permite:
+    # - Importar el módulo sin efectos secundarios:
+    #       no se ejecuta el codigo al importar el modulo.
+    # - Existe un punto de entrada claro a la aplicación.
+    # - Permite el testing.
+    # - Separa el código del script del código del módulo.
     main()
