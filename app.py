@@ -15,43 +15,32 @@ def generarDNIaleatorio():
     CERO_ASCII = 48
     NUEVE_ASCII = 57
     LONGITUD_DNI = 8
-    dni = ""
     # DNI tiene 8 digitos
-    for _ in range(LONGITUD_DNI):
-        # random.randrange(start, stop[, step])
-        # numeroAleatorio = random.randint(0, 9)
-        # ASCII 48-57 = 0-9
-        # generamos un numero aleatorio entre 48 y 57
-        caracter_ascii = random.randrange(CERO_ASCII, NUEVE_ASCII + 1)
-        # convertimos el numero ASCII a caracter.
-        # chr() toma el argumento como codigo ASCII de un caracter
-        dni += chr(caracter_ascii)
-    return dni
+    # ASCII 48-57 = 0-9
+    # generamos un numero aleatorio entre 48 y 57
+    # convertimos el numero ASCII a caracter.
+    # chr() toma el argumento como codigo ASCII de un caracter
+    return ''.join([chr(random.randrange(CERO_ASCII, NUEVE_ASCII + 1))
+                   for _ in range(LONGITUD_DNI)])
 
 
-def generarCIFLetraNoPermitida(numero_casos):
-    cif_con_letra_prohibida = []
-    for _ in range(numero_casos):
-        dni = generarDNIaleatorio()
-        # en la ultima posicion añado una letra NO PERMITIDA
-        # ['I', 'Ñ', 'O', 'U']
-        cif = dni + LETRAS_NO_PERMITIDAS[random.randrange(0, \
-                                                    len(LETRAS_NO_PERMITIDAS))]
-        cif_con_letra_prohibida.append(cif)
-    return cif_con_letra_prohibida
+def generarCIFsLetraNoPermitida(numero_casos):
+    # en la ultima posicion añado una letra NO PERMITIDA
+    # ['I', 'Ñ', 'O', 'U']
+    return [generarDNIaleatorio()
+            + LETRAS_NO_PERMITIDAS[random.randrange(0, \
+                                   len(LETRAS_NO_PERMITIDAS))]
+            for _ in range(numero_casos)]
 
 
 def generarCIFsAleatorios(numero_casos):
     A_ASCII = 65
     Z_ASCII = 90
-    cifs_aleatorios = []
-    for _ in range(numero_casos):
-        dni = generarDNIaleatorio()
-        # en la ultima posicion añado una letra A-Z
-        # ASCII 65-90 = A-Z
-        cif = dni + chr(random.randrange(A_ASCII, Z_ASCII + 1))
-        cifs_aleatorios.append(cif)
-    return cifs_aleatorios
+    # en la ultima posicion añado una letra A-Z
+    # ASCII 65-90 = A-Z
+    return [generarDNIaleatorio()
+            + chr(random.randrange(A_ASCII, Z_ASCII + 1))
+            for _ in range(numero_casos)]
 
 
 def generarCIFsAleatoriosMalFormados(numero_casos):
@@ -79,7 +68,6 @@ def main():
 
     print("\n######     TABLA     ######\n")
 
-    # tabla.mostrarTabla()
     print(tabla)
 
     print("\n## ACCESO POR POSICION ##\n")
@@ -95,18 +83,12 @@ def main():
     ### Añado casos test INCORRECTOS ALEATORIOS ###
 
     numero_casos = 15
-    cifs_letra_no_permitida = generarCIFLetraNoPermitida(numero_casos)
+    cifs_letra_no_permitida = generarCIFsLetraNoPermitida(numero_casos)
 
     print("\n## CASOS TEST LETRA NO PERMITIDA ##\n")
 
-    print(cifs_letra_no_permitida)
-
     for cif in cifs_letra_no_permitida:
-        if tabla.calcularLetra(cif[:-1]) == cif[-1]:
-            print(f"{cif} {Colors.OKGREEN.value} OK {Colors.ENDC.value}")
-        else:
-            print(f"{cif} {Colors.FAIL.value} FAIL {Colors.ENDC.value}")
-
+        prettyFormatter(tabla.calcularLetra(cif[:-1]) == cif[-1], cif)
 
     ### DNI ###
 
