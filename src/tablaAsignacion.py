@@ -55,4 +55,4 @@ class TablaAsignacion():
         return self.getLetra(posicion)
 
     def __repr__(self) -> str:
-        return "\n".join(self.getTabla())
+        return ' '.join(self.getTabla())
