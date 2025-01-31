@@ -1,4 +1,3 @@
-from src.cli_colors import Colors
 
 class TablaAsignacion():
 
