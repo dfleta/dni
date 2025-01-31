@@ -55,9 +55,8 @@ def generarCIFsAleatoriosMalFormados(numero_casos):
 
 
 def prettyFormatter(condition, message):
-    print(f"{Colors.OKGREEN.value} {message} {Colors.ENDC.value}"
-            if condition
-            else f"{Colors.FAIL.value} {message} {Colors.ENDC.value}")
+    color = Colors.OKGREEN.value if condition else Colors.FAIL.value
+    return f"{color} {message} {Colors.ENDC.value}"
 
 
 def main():
@@ -88,7 +87,7 @@ def main():
     print("\n## CASOS TEST LETRA NO PERMITIDA ##\n")
 
     for cif in cifs_letra_no_permitida:
-        prettyFormatter(tabla.calcularLetra(cif[:-1]) == cif[-1], cif)
+        print(prettyFormatter(tabla.calcularLetra(cif[:-1]) == cif[-1], cif))
 
     ### DNI ###
 
@@ -104,8 +103,8 @@ def main():
     for cif in cifs_aleatorios:
         dni = Dni(cif)
         dni.checkCIF()
-        prettyFormatter(dni.getNumeroSano(), dni.getDni())
-        prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
+        print(prettyFormatter(dni.getNumeroSano(), dni.getDni()))
+        print(prettyFormatter(dni.getLetraSana(), dni.obtenerLetra()))
 
     print("\n## CASOS TEST DNI ALEATORIOS MAL FORMADOS ##\n")
 
@@ -114,8 +113,8 @@ def main():
     for cif in cifs_aleatorios:
         dni = Dni(cif)
         dni.checkCIF()
-        prettyFormatter(dni.getNumeroSano(), dni.getDni())
-        prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
+        print(prettyFormatter(dni.getNumeroSano(), dni.getDni()))
+        print(prettyFormatter(dni.getLetraSana(), dni.obtenerLetra()))
 
     ### Casos test OK ###
 
@@ -142,8 +141,8 @@ def main():
     for cif_ok in cifs_ok:
         dni = Dni(cif_ok)
         dni.checkCIF()
-        prettyFormatter(dni.getNumeroSano(), dni.getDni())
-        prettyFormatter(dni.getLetraSana(), dni.obtenerLetra())
+        print(prettyFormatter(dni.getNumeroSano(), dni.getDni()))
+        print(prettyFormatter(dni.getLetraSana(), dni.obtenerLetra()))
 
 
 if __name__ == "__main__":
